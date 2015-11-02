@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.fpmislata.banco.persistence;
+package com.fpmislata.banco.persistence.dao;
 
 import com.fpmislata.banco.business.domain.EntidadBancaria;
-import com.fpmislata.banco.persistence.impl.GenericDAO;
+import com.fpmislata.banco.persistence.dao.impl.GenericDAO;
 import java.util.List;
 
 

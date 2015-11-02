@@ -7,7 +7,7 @@ package com.fpmislata.banco.business.service.impl;
 
 import com.fpmislata.banco.business.domain.EntidadBancaria;
 import com.fpmislata.banco.business.service.EntidadBancariaService;
-import com.fpmislata.banco.persistence.EntidadBancariaDAO;
+import com.fpmislata.banco.persistence.dao.EntidadBancariaDAO;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 

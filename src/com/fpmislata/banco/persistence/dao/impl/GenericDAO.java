@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.fpmislata.banco.persistence.impl;
+package com.fpmislata.banco.persistence.dao.impl;
 
 import java.util.List;
 

@@ -3,12 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.fpmislata.banco.persistence;
+package com.fpmislata.banco.persistence.jdbc;
+
+import javax.sql.DataSource;
 
 /**
  *
- * @author alumno
+ * @author danie
  */
-public interface SucursalBancariaDAO {
-    
+public interface DataSourceFactory {
+        public DataSource getDataSource();
 }

@@ -8,8 +8,8 @@
 ">
   
     <context:annotation-config/>
- <bean class="com.fpmislata.banco.persistence.impl.jdbc.ConnectionFactoryImplDriverManager" />
- <bean class="com.fpmislata.banco.persistence.impl.jdbc.EntidadBancariaDAOImplJDBC" />
+ <bean class="com.fpmislata.banco.persistence.jdbc.impl.ConnectionFactoryImplDriverManager" />
+ <bean class="com.fpmislata.banco.persistence.dao.impl.jdbc.EntidadBancariaDAOImplJDBC" />
  
  
 </beans>

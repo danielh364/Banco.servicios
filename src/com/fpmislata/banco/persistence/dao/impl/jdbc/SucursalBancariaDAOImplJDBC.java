@@ -3,15 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.fpmislata.banco.persistence.impl.jdbc;
-
-import java.sql.Connection;
+package com.fpmislata.banco.persistence.dao.impl.jdbc;
 
 /**
  *
  * @author alumno
  */
-public interface ConnectionFactory {
-    Connection getConnection();
-    void close(Connection connection);
+public class SucursalBancariaDAOImplJDBC {
+    
 }

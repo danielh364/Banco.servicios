@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.fpmislata.banco.persistence.impl.jdbc;
+package com.fpmislata.banco.persistence.jdbc.impl;
 
+import com.fpmislata.banco.persistence.jdbc.ConnectionFactory;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;

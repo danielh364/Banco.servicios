@@ -1,7 +1,8 @@
-package com.fpmislata.banco.persistence.impl.jdbc;
+package com.fpmislata.banco.persistence.dao.impl.jdbc;
 
+import com.fpmislata.banco.persistence.jdbc.ConnectionFactory;
 import com.fpmislata.banco.business.domain.EntidadBancaria;
-import com.fpmislata.banco.persistence.EntidadBancariaDAO;
+import com.fpmislata.banco.persistence.dao.EntidadBancariaDAO;
 import com.fpmislata.banco.util.DateConverter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
