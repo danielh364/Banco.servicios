@@ -12,5 +12,5 @@ import javax.sql.DataSource;
  * @author danie
  */
 public interface DataSourceFactory {
-        public DataSource getDataSource();
+        public DataSource getDataSource(String dataSourceName);
 }

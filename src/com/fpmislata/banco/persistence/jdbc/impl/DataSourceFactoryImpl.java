@@ -18,11 +18,11 @@ import javax.sql.DataSource;
 public class DataSourceFactoryImpl implements DataSourceFactory {
 
     @Override
-    public DataSource getDataSource() {
+    public DataSource getDataSource(String dataSourceName) {
         try {
             InitialContext initCtx = new InitialContext();
             Context envCtx = (Context) initCtx.lookup("java:comp/env");
-            DataSource dataSource = (DataSource) envCtx.lookup("jdbc/banco");
+            DataSource dataSource = (DataSource) envCtx.lookup("jdbc/"+dataSourceName);
 
             return dataSource;
 
