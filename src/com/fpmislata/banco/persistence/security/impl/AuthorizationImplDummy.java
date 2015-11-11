@@ -17,16 +17,17 @@ public class AuthorizationImplDummy implements Authorization {
     @Override
     public boolean authorizedURL(Usuario user, String URL, String metodo) {
 
-        boolean autorizado = false;
+        boolean autorizado;
 
-        if (user.getNombre().equalsIgnoreCase("Daniel")) {
+        if (URL.equalsIgnoreCase("/Banco.api/api/login")) {
             autorizado = true;
+        } else {
+            if (user != null) {
+                autorizado = true;
+            } else {
+                autorizado = false;
+            }
         }
-
-        if (URL.equals("/Banco.api/api/login")) {
-            autorizado = true;
-        }
-
         return autorizado;
     }
 
