@@ -15,8 +15,19 @@ import com.fpmislata.banco.persistence.security.Authorization;
 public class AuthorizationImplDummy implements Authorization {
 
     @Override
-    public boolean authorizedURL(Usuario user, String URL) {
-        return true;
+    public boolean authorizedURL(Usuario user, String URL, String metodo) {
+
+        boolean autorizado = false;
+
+        if (user.getNombre().equalsIgnoreCase("Daniel")) {
+            autorizado = true;
+        }
+
+        if (URL.equals("/api/login")) {
+            autorizado = true;
+        }
+
+        return autorizado;
     }
 
 }

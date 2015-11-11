@@ -19,6 +19,11 @@ public class Usuario {
     private String password;
     private Rol rol;
 
+    public Usuario(String nombre, String password) {
+        this.nombre = nombre;
+        this.password = password;
+    }
+
     public Usuario(String nombre, String apellido, String dni, String direccion, String email, String password) {
         this.nombre = nombre;
         this.apellido = apellido;
