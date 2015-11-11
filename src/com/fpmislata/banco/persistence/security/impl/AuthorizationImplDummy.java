@@ -23,7 +23,7 @@ public class AuthorizationImplDummy implements Authorization {
             autorizado = true;
         }
 
-        if (URL.equals("/api/login")) {
+        if (URL.equals("/Banco.api/api/login")) {
             autorizado = true;
         }
 
