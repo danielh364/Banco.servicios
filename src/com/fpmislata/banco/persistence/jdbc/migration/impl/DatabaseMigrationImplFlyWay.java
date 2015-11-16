@@ -23,7 +23,7 @@ public class DatabaseMigrationImplFlyWay implements DatabaseMigration {
     @Override
     public void migrate() {
         Flyway flyway = new Flyway();
-        DataSource dataSource = dataSourceFactory.getDataSource("banco");
+        DataSource dataSource = dataSourceFactory.getDataSource("MySQLDS");
         flyway.setDataSource(dataSource);
         flyway.setLocations("com.fpmislata.banco.persistence.jdbc.migration.scripts");
         flyway.setEncoding("UTF-8");

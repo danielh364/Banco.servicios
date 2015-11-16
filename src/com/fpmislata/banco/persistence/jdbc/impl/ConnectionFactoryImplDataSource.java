@@ -21,7 +21,7 @@ public class ConnectionFactoryImplDataSource implements ConnectionFactory {
         try {
             Connection connection = null;
 
-            DataSource dataSource = dataSourceFactory.getDataSource("banco");
+            DataSource dataSource = dataSourceFactory.getDataSource("MySQLDS");
 
             connection = dataSource.getConnection();
             return connection;
