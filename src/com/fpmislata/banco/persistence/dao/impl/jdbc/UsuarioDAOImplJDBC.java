@@ -49,6 +49,8 @@ public class UsuarioDAOImplJDBC implements UsuarioDAO {
                 String rolUpper = rol.toUpperCase();
                 Rol rolUsuario = Rol.valueOf(rolUpper);
                 usuario = new Usuario(idusuario, nombreUsuario, nombre, apellido, dni, direccion, email, password, rolUsuario);
+            } else {
+                usuario = null;
             }
             connectionFactory.close(connection);
             return usuario;
@@ -79,7 +81,8 @@ public class UsuarioDAOImplJDBC implements UsuarioDAO {
                 String rolUpper = rol.toUpperCase();
                 Rol rolUsuario = Rol.valueOf(rolUpper);
                 usuario = new Usuario(idusuario, nombreUsuario, nombre, apellido, dni, direccion, email, password, rolUsuario);
-            }
+            }else{
+            usuario=null;}
             connectionFactory.close(connection);
             return usuario;
         } catch (SQLException ex) {
