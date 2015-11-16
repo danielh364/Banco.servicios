@@ -5,14 +5,12 @@
  */
 package com.fpmislata.banco.persistence.dao;
 
-import com.fpmislata.banco.business.domain.EntidadBancaria;
-import java.util.List;
-
+import com.fpmislata.banco.business.domain.Usuario;
 
 /**
  *
- * @author alumno
+ * @author danie
  */
-public interface EntidadBancariaDAO extends GenericDAO<EntidadBancaria>{
-     List<EntidadBancaria> findByNombre(String nombre);
+public interface UsuarioDAO extends GenericDAO<Usuario>{
+    Usuario FindByUserName(String UserName);
 }
