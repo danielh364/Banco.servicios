@@ -12,11 +12,16 @@ import java.util.List;
  * @author alumno
  * @param <T>
  */
-public interface GenericDAO <T> {
+public interface GenericDAO<T> {
+
     T get(int id);
-    void insert(T entidadBancaria);
-    void update(T entidadBancaria);
+
+    T insert(T entidadBancaria);
+
+    T update(T entidadBancaria);
+
     boolean delete(int id);
+
     List<T> findAll();
-   
+
 }

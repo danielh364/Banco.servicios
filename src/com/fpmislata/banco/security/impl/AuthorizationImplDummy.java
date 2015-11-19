@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.fpmislata.banco.persistence.security.impl;
+package com.fpmislata.banco.security.impl;
 
 import com.fpmislata.banco.business.domain.Usuario;
-import com.fpmislata.banco.persistence.security.Authorization;
+import com.fpmislata.banco.security.Authorization;
 
 /**
  *

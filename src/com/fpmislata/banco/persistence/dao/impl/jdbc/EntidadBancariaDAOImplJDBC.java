@@ -48,7 +48,7 @@ public class EntidadBancariaDAOImplJDBC implements EntidadBancariaDAO {
     }
 
     @Override
-    public void insert(EntidadBancaria entidadBancaria) {
+    public EntidadBancaria insert(EntidadBancaria entidadBancaria) {
 
         try {
             Connection connection;
@@ -70,15 +70,17 @@ public class EntidadBancariaDAOImplJDBC implements EntidadBancariaDAO {
             }
 
             connectionFactory.close(connection);
+            return entidadBancaria;
         } catch (SQLException ex) {
             throw new RuntimeException("Error SQL: " + ex.getMessage());
         }
     }
 
     @Override
-    public void update(EntidadBancaria entidadBancaria) {
+    public EntidadBancaria update(EntidadBancaria entidadBancaria) {
         try {
             Connection connection;
+            EntidadBancaria EntidadBancariaDevolver;
             connection = connectionFactory.getConnection();
             String sql = "UPDATE entidadBancaria set nombre=?,codigoEntidad=?,fechaCreacion=?,direccion=?,cif=? where idEntidadBancaria = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -88,8 +90,18 @@ public class EntidadBancariaDAOImplJDBC implements EntidadBancariaDAO {
             preparedStatement.setString(4, entidadBancaria.getDireccion());
             preparedStatement.setString(5, entidadBancaria.getCif());
             preparedStatement.setInt(6, entidadBancaria.getIdEntidadBancaria());
-            preparedStatement.executeUpdate();
+            int numFilas = preparedStatement.executeUpdate();
+
+            if (numFilas == 0) {
+                EntidadBancariaDevolver = null;
+            }
+            if (numFilas == 1) {
+                EntidadBancariaDevolver = this.get(entidadBancaria.getIdEntidadBancaria());
+            } else {
+                throw new RuntimeException("Hay mas de una fila para modificar");
+            }
             connectionFactory.close(connection);
+            return EntidadBancariaDevolver;
         } catch (SQLException e) {
             throw new RuntimeException("Error SQL: " + e.getMessage());
         }
@@ -104,11 +116,13 @@ public class EntidadBancariaDAOImplJDBC implements EntidadBancariaDAO {
             String sql = "DELETE from entidadBancaria WHERE idEntidadBancaria = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, idEntidadBancaria);
-            int filas = preparedStatement.executeUpdate();
-            if (filas == 1) {
+            int numFilas = preparedStatement.executeUpdate();
+            if (numFilas == 1) {
                 borrado = true;
-            } else {
+            } else if (numFilas == 0) {
                 borrado = false;
+            } else {
+                throw new RuntimeException("Hay mas de una fila para borrar");
             }
             connectionFactory.close(connection);
             return borrado;
@@ -116,7 +130,7 @@ public class EntidadBancariaDAOImplJDBC implements EntidadBancariaDAO {
             throw new RuntimeException("Error SQL: " + e.getMessage());
         }
     }
-    
+
     @Override
     public List<EntidadBancaria> findAll() {
         try {

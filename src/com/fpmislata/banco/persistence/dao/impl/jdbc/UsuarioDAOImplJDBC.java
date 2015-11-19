@@ -81,8 +81,9 @@ public class UsuarioDAOImplJDBC implements UsuarioDAO {
                 String rolUpper = rol.toUpperCase();
                 Rol rolUsuario = Rol.valueOf(rolUpper);
                 usuario = new Usuario(idusuario, nombreUsuario, nombre, apellido, dni, direccion, email, password, rolUsuario);
-            }else{
-            usuario=null;}
+            } else {
+                usuario = null;
+            }
             connectionFactory.close(connection);
             return usuario;
         } catch (SQLException ex) {
@@ -92,23 +93,30 @@ public class UsuarioDAOImplJDBC implements UsuarioDAO {
     }
 
     @Override
-    public void insert(Usuario Usuario) {
+    public Usuario insert(Usuario usuario) {
 
         try {
             Connection connection = connectionFactory.getConnection();
             String sql = "select into usuario values(null,?,?,?,?,?,?,?,?)";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, Usuario.getNombreUsuario());
-            preparedStatement.setString(1, Usuario.getNombre());
-            preparedStatement.setString(1, Usuario.getApellido());
-            preparedStatement.setString(1, Usuario.getDni());
-            preparedStatement.setString(1, Usuario.getDireccion());
-            preparedStatement.setString(1, Usuario.getEmail());
-            preparedStatement.setString(1, Usuario.getPassword());
-            preparedStatement.setString(1, Usuario.getRol().name());
+            preparedStatement.setString(1, usuario.getNombreUsuario());
+            preparedStatement.setString(1, usuario.getNombre());
+            preparedStatement.setString(1, usuario.getApellido());
+            preparedStatement.setString(1, usuario.getDni());
+            preparedStatement.setString(1, usuario.getDireccion());
+            preparedStatement.setString(1, usuario.getEmail());
+            preparedStatement.setString(1, usuario.getPassword());
+            preparedStatement.setString(1, usuario.getRol().name());
             preparedStatement.execute();
+            ResultSet resulclave = preparedStatement.getGeneratedKeys();
+            if (resulclave.next()) {
+                usuario.setIdusuario(resulclave.getInt(1));
+            } else {
+                throw new RuntimeException("Error SQL");
+            }
 
             connectionFactory.close(connection);
+            return usuario;
         } catch (SQLException ex) {
             throw new RuntimeException(ex);
         }
@@ -116,22 +124,33 @@ public class UsuarioDAOImplJDBC implements UsuarioDAO {
     }
 
     @Override
-    public void update(Usuario Usuario) {
+    public Usuario update(Usuario usuario) {
         try {
+            Usuario usuarioDevolver;
             Connection connection = connectionFactory.getConnection();
             String sql = "update usuario set nombreusuario=?,nombre=?,apellido=?,dni=?,direccion=?,email=?,password=?,rol=? where idusuario=?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, Usuario.getNombreUsuario());
-            preparedStatement.setString(1, Usuario.getNombre());
-            preparedStatement.setString(1, Usuario.getApellido());
-            preparedStatement.setString(1, Usuario.getDni());
-            preparedStatement.setString(1, Usuario.getDireccion());
-            preparedStatement.setString(1, Usuario.getEmail());
-            preparedStatement.setString(1, Usuario.getPassword());
-            preparedStatement.setString(1, Usuario.getRol().name());
-            preparedStatement.setInt(1, Usuario.getIdusuario());
-            preparedStatement.executeUpdate();
+            preparedStatement.setString(1, usuario.getNombreUsuario());
+            preparedStatement.setString(1, usuario.getNombre());
+            preparedStatement.setString(1, usuario.getApellido());
+            preparedStatement.setString(1, usuario.getDni());
+            preparedStatement.setString(1, usuario.getDireccion());
+            preparedStatement.setString(1, usuario.getEmail());
+            preparedStatement.setString(1, usuario.getPassword());
+            preparedStatement.setString(1, usuario.getRol().name());
+            preparedStatement.setInt(1, usuario.getIdusuario());
+            int numFilas = preparedStatement.executeUpdate();
+
+            if (numFilas == 0) {
+                usuarioDevolver = null;
+            }
+            if (numFilas == 1) {
+                usuarioDevolver = this.get(usuario.getIdusuario());
+            } else {
+                throw new RuntimeException("Hay mas de una fila para modificar");
+            }
             connectionFactory.close(connection);
+            return usuarioDevolver;
         } catch (SQLException ex) {
             throw new RuntimeException(ex);
         }
@@ -146,12 +165,14 @@ public class UsuarioDAOImplJDBC implements UsuarioDAO {
             String sql = "delete from usuario where idusuario=?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, id);
-            int filas = preparedStatement.executeUpdate();
+            int numFilas = preparedStatement.executeUpdate();
 
-            if (filas == 0) {
+            if (numFilas == 1) {
+                comprobar = true;
+            } else if (numFilas == 0) {
                 comprobar = false;
             } else {
-                comprobar = true;
+                throw new RuntimeException("Hay mas de una fila para borrar");
             }
             connectionFactory.close(connection);
             return comprobar;

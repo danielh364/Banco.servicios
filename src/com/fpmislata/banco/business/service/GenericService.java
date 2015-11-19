@@ -14,8 +14,8 @@ import java.util.List;
  */
 public interface GenericService <EB>{
       EB get(int id);
-    void insert(EB entidadBancaria);
-    void update(EB entidadBancaria);
+    EB insert(EB entidadBancaria);
+    EB update(EB entidadBancaria);
     boolean delete(int id);
     List<EB> findAll();
 }

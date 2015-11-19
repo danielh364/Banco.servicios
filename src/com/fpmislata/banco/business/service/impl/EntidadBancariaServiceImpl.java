@@ -31,13 +31,13 @@ public class EntidadBancariaServiceImpl implements EntidadBancariaService {
     }
 
     @Override
-    public void insert(EntidadBancaria entidadBancaria) {
-        this.entidadBancaria.insert(entidadBancaria);
+    public EntidadBancaria insert(EntidadBancaria entidadBancaria) {
+        return this.entidadBancaria.insert(entidadBancaria);
     }
 
     @Override
-    public void update(EntidadBancaria entidadBancaria) {
-        this.entidadBancaria.update(entidadBancaria);
+    public EntidadBancaria update(EntidadBancaria entidadBancaria) {
+        return this.entidadBancaria.update(entidadBancaria);
     }
 
     @Override
