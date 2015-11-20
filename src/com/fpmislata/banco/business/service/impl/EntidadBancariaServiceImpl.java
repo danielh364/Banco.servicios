@@ -7,8 +7,11 @@ package com.fpmislata.banco.business.service.impl;
 
 import com.fpmislata.banco.business.domain.EntidadBancaria;
 import com.fpmislata.banco.business.service.EntidadBancariaService;
+import com.fpmislata.banco.core.BusinessException;
 import com.fpmislata.banco.persistence.dao.EntidadBancariaDAO;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -32,6 +35,14 @@ public class EntidadBancariaServiceImpl implements EntidadBancariaService {
 
     @Override
     public EntidadBancaria insert(EntidadBancaria entidadBancaria) {
+        try {
+            if (entidadBancaria.getNombre().equalsIgnoreCase("''")) {
+                throw new BusinessException("", "");
+            }
+        } catch (BusinessException ex) {
+            throw new RuntimeException();
+        }
+
         return this.entidadBancaria.insert(entidadBancaria);
     }
 
