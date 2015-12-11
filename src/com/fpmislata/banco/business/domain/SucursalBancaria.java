@@ -5,11 +5,13 @@
  */
 package com.fpmislata.banco.business.domain;
 
+import java.io.Serializable;
+
 /**
  *
  * @author alumno
  */
-public class SucursalBancaria {
+public class SucursalBancaria implements Serializable  {
     
     String nombre;
     String direccion;
