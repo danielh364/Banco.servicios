@@ -5,6 +5,7 @@
  */
 package com.fpmislata.banco.persistence.dao;
 
+import com.fpmislata.banco.core.BusinessException;
 import java.util.List;
 
 /**
@@ -16,9 +17,9 @@ public interface GenericDAO<T> {
 
     T get(int id);
 
-    T insert(T entidadBancaria);
+    T insert(T t) throws BusinessException;
 
-    T update(T entidadBancaria);
+    T update(T t) throws BusinessException;
 
     boolean delete(int id);
 

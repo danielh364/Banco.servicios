@@ -14,17 +14,17 @@ import java.util.Date;
  */
 public class EntidadBancaria implements Serializable {
 
-    int idEntidadBancaria;
-    String nombre;
-    String codigoEntidad;
-    Date fechaCreacion;
-    String direccion;
-    String cif;
-
+    public int idEntidadBancaria;
+    public String nombre;
+    public String codigoEntidad;
+    public Date fechaCreacion;
+    public String direccion;
+    public String cif;
 
     public EntidadBancaria() {
 
     }
+
     public EntidadBancaria(String nombre, String codigoEntidad, Date fechaCreacion, String direccion, String cif) {
         this.nombre = nombre;
         this.codigoEntidad = codigoEntidad;
@@ -89,7 +89,6 @@ public class EntidadBancaria implements Serializable {
     public void setCif(String cif) {
         this.cif = cif;
     }
-
 
     @Override
     public String toString() {

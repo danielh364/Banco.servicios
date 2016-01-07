@@ -5,60 +5,69 @@
  */
 package com.fpmislata.banco.business.service.impl;
 
+import com.aeat.valida.Validador;
 import com.fpmislata.banco.business.domain.EntidadBancaria;
 import com.fpmislata.banco.business.service.EntidadBancariaService;
 import com.fpmislata.banco.core.BusinessException;
+import com.fpmislata.banco.core.BusinessMessage;
 import com.fpmislata.banco.persistence.dao.EntidadBancariaDAO;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  *
  * @author alumno
  */
-public class EntidadBancariaServiceImpl implements EntidadBancariaService {
+public class EntidadBancariaServiceImpl extends GenericServiceImpl<EntidadBancaria> implements EntidadBancariaService {
 
     @Autowired
-    EntidadBancariaDAO entidadBancaria;
+    EntidadBancariaDAO entidadBancariaDAO;
+
+    @Override
+    public EntidadBancaria insert(EntidadBancaria entidadBancaria) throws BusinessException {
+
+        List<BusinessMessage> businessMessages = new ArrayList<>();
+
+        Validador validador = new Validador();
+        int validado = validador.checkNif(entidadBancaria.cif);
+
+        if (validado == 0 || validado < 0) {
+            BusinessMessage businessMessage = new BusinessMessage("CIF: ", "El formato es erróneo.");
+            businessMessages.add(businessMessage);
+        }
+
+        if (businessMessages.size() > 0) {
+            throw new BusinessException(businessMessages);
+        }
+
+        return entidadBancariaDAO.insert(entidadBancaria);
+
+    }
+
+    @Override
+    public EntidadBancaria update(EntidadBancaria entidadBancaria) throws BusinessException {
+        List<BusinessMessage> businessMessages = new ArrayList<>();
+
+        Validador validador = new Validador();
+        int validado = validador.checkNif(entidadBancaria.cif);
+
+        if (validado == 0 || validado < 0) {
+            BusinessMessage businessMessage = new BusinessMessage("CIF: ", "El formato es erróneo.");
+            businessMessages.add(businessMessage);
+        }
+
+        if (businessMessages.size() > 0) {
+            throw new BusinessException(businessMessages);
+        }
+
+        return entidadBancariaDAO.update(entidadBancaria);
+    }
 
     @Override
     public List<EntidadBancaria> findByNombre(String nombre) {
-        return entidadBancaria.findByNombre(nombre);
-    }
-
-    @Override
-    public EntidadBancaria get(int id) {
-        return entidadBancaria.get(id);
-    }
-
-    @Override
-    public EntidadBancaria insert(EntidadBancaria entidadBancaria) {
-        try {
-            if (entidadBancaria.getNombre().equalsIgnoreCase("''")) {
-                throw new BusinessException("", "");
-            }
-        } catch (BusinessException ex) {
-            throw new RuntimeException();
-        }
-
-        return this.entidadBancaria.insert(entidadBancaria);
-    }
-
-    @Override
-    public EntidadBancaria update(EntidadBancaria entidadBancaria) {
-        return this.entidadBancaria.update(entidadBancaria);
-    }
-
-    @Override
-    public boolean delete(int id) {
-        return entidadBancaria.delete(id);
-    }
-
-    @Override
-    public List<EntidadBancaria> findAll() {
-        return entidadBancaria.findAll();
+        List<EntidadBancaria> entidadesBancarias = entidadBancariaDAO.findByNombre(nombre);
+        return entidadesBancarias;
     }
 
 }

@@ -8,22 +8,19 @@ import org.hibernate.service.ServiceRegistry;
 
 public class HibernateUtil {
 
-
     private static SessionFactory sessionFactory;
 
     public static void buildSessionFactory() {
-        Configuration configuration = new Configuration() {};
+        Configuration configuration = new Configuration();
         configuration.configure();
-        ServiceRegistry standardServiceRegistry = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
-        sessionFactory = configuration.buildSessionFactory(standardServiceRegistry);
+        ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
+        sessionFactory = configuration.buildSessionFactory(serviceRegistry);
     }
 
-    
-    
     public static SessionFactory getSessionFactory() {
         return sessionFactory;
     }
-    
+
     public static void closeSessionFactory() {
         sessionFactory.close();
     }

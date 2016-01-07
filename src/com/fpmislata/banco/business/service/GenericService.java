@@ -5,17 +5,23 @@
  */
 package com.fpmislata.banco.business.service;
 
+import com.fpmislata.banco.core.BusinessException;
 import java.util.List;
 
 /**
  *
  * @author alumno
- * @param <EB>
+ * @param <S>
  */
-public interface GenericService <EB>{
-      EB get(int id);
-    EB insert(EB entidadBancaria);
-    EB update(EB entidadBancaria);
+public interface GenericService<S> {
+
+    S get(int id);
+
+    S insert(S s) throws BusinessException;
+
+    S update(S s) throws BusinessException;
+
     boolean delete(int id);
-    List<EB> findAll();
+
+    List<S> findAll();
 }
