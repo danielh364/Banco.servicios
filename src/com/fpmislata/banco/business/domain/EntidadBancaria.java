@@ -8,6 +8,7 @@ package com.fpmislata.banco.business.domain;
 import java.io.Serializable;
 import java.util.Date;
 import static javax.swing.text.StyleConstants.Size;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -17,16 +18,17 @@ import org.hibernate.validator.constraints.NotBlank;
  */
 public class EntidadBancaria implements Serializable {
 
-    public int idEntidadBancaria;
+public int idEntidadBancaria;
     
     @NotBlank
     @Size(min = 2, max = 40)
     public String nombre;
 
     @NotBlank
-    @Size(min = 4, max = 5)
+    @Size(min = 4, max = 4)
     public String codigoEntidad;
 
+    @NotNull
     public Date fechaCreacion;
 
     @Size(min = 2, max = 50)
