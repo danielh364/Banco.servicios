@@ -55,21 +55,19 @@ public class GenericDAOImplHibernate<T> implements GenericDAO<T> {
 
     @Override
     public T update(T t) throws BusinessException {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        session.beginTransaction();
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 
         try {
+            session.beginTransaction();
             session.update(t);
             session.getTransaction().commit();
+
+            return t;
         } catch (org.hibernate.exception.ConstraintViolationException ex) {
             throw new BusinessException(ex);
         } catch (javax.validation.ConstraintViolationException cve) {
             throw new BusinessException(cve);
-        } finally {
-            session.close();
         }
-
-        return t;
     }
 
     @Override
