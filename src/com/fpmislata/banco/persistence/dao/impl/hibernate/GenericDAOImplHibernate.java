@@ -25,7 +25,7 @@ public class GenericDAOImplHibernate<T> implements GenericDAO<T> {
 
     @Override
     public T get(int id) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
+      Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
 
         T t = (T) session.get(getEntityClass(), id);
@@ -38,7 +38,7 @@ public class GenericDAOImplHibernate<T> implements GenericDAO<T> {
 
     @Override
     public T insert (T t) throws BusinessException {
-       Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+      Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 
         try {
             session.beginTransaction();
@@ -73,7 +73,7 @@ public class GenericDAOImplHibernate<T> implements GenericDAO<T> {
     @Override
     public boolean delete(int id) {
         boolean devolver;
-        Session session = HibernateUtil.getSessionFactory().openSession();
+         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
         T t = this.get(id);
 
@@ -91,12 +91,13 @@ public class GenericDAOImplHibernate<T> implements GenericDAO<T> {
 
     @Override
     public List<T> findAll() {
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
 
         Query query = session.createQuery("SELECT e FROM " + getEntityClass().getName() + " e");
         List<T> tes = query.list();
 
+        session.getTransaction().commit();
         return tes;
     }
 

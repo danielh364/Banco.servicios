@@ -5,36 +5,81 @@
  */
 package com.fpmislata.banco.business.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
+import java.util.Date;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import org.hibernate.validator.constraints.NotBlank;
 
 /**
  *
  * @author alumno
  */
+
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class SucursalBancaria implements Serializable  {
     
-    String nombre;
-    String direccion;
-    String telefono;
-    String director;
+   
+    private int idSucursalBancaria;
+
+    @NotBlank
+    @Size(min = 4, max = 4)
+    private String codigoSucursalBancaria;
+
+    @NotBlank
+    @Size(min = 3, max = 80)
+    private String direccion;
+
+    @NotBlank
+    @Size(min = 3, max = 20)
+    private String telefono;
+
+    @NotNull
+    private EntidadBancaria entidadBancaria;
+
+    @NotNull
+    private Date fechaCreacion;
 
     public SucursalBancaria() {
     }
 
-    public SucursalBancaria(String nombre, String direccion, String telefono, String director) {
-        this.nombre = nombre;
+    public SucursalBancaria(String codigoSucursalBancaria, String direccion, String telefono) {
+        this.codigoSucursalBancaria = codigoSucursalBancaria;
         this.direccion = direccion;
         this.telefono = telefono;
-        this.director = director;
     }
 
-    
-    public String getNombre() {
-        return nombre;
+    public int getIdSucursalBancaria() {
+        return idSucursalBancaria;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setIdSucursalBancaria(int idSucursalBancaria) {
+        this.idSucursalBancaria = idSucursalBancaria;
+    }
+
+    public EntidadBancaria getEntidadBancaria() {
+        return entidadBancaria;
+    }
+
+    public void setEntidadBancaria(EntidadBancaria entidadBancaria) {
+        this.entidadBancaria = entidadBancaria;
+    }
+
+    public String getCodigoSucursalBancaria() {
+        return codigoSucursalBancaria;
+    }
+
+    public void setCodigoSucursalBancaria(String codigoSucursalBancaria) {
+        this.codigoSucursalBancaria = codigoSucursalBancaria;
+    }
+
+    public Date getFechaCreacion() {
+        return fechaCreacion;
+    }
+
+    public void setFechaCreacion(Date fechaCreacion) {
+        this.fechaCreacion = fechaCreacion;
     }
 
     public String getDireccion() {
@@ -52,13 +97,4 @@ public class SucursalBancaria implements Serializable  {
     public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
-
-    public String getDirector() {
-        return director;
-    }
-
-    public void setDirector(String director) {
-        this.director = director;
-    }
-    
 }

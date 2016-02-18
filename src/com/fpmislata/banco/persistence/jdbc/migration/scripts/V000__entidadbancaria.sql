@@ -1,41 +1,104 @@
-CREATE TABLE `entidadbancaria` (
-	`idEntidadBancaria` INT(11) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT,
-	`Nombre` VARCHAR(50) NULL DEFAULT NULL,
-	`CodigoEntidad` VARCHAR(50) NULL DEFAULT NULL,
-	`FechaCreacion` DATE NULL DEFAULT NULL,
-	`Direccion` VARCHAR(50) NULL DEFAULT NULL,
-	`CIF` VARCHAR(50) NULL DEFAULT NULL,
+CREATE TABLE IF NOT EXISTS `entidadbancaria` (
+	`idEntidadBancaria` INT(11) NOT NULL AUTO_INCREMENT,
+	`nombre` VARCHAR(50) NULL DEFAULT NULL,
+	`codigoEntidad` VARCHAR(50) NULL DEFAULT NULL UNIQUE,
+	`fechaCreacion` DATE NULL DEFAULT NULL,
+	`direccion` VARCHAR(50) NULL DEFAULT NULL,
+	`cif` VARCHAR(10) NULL DEFAULT NULL,
 	PRIMARY KEY (`idEntidadBancaria`)
 )
 COLLATE='utf8_general_ci'
 ENGINE=InnoDB
-AUTO_INCREMENT=52
 ;
 
-INSERT INTO `entidadbancaria` (`idEntidadBancaria`, `Nombre`, `CodigoEntidad`, `FechaCreacion`, `Direccion`, `CIF`) VALUES
-	(00000000013, 'sssss', '123', '2015-01-01', 'sss', 'sss'),
-	(00000000015, 'ww', '123', '2015-01-01', 'ww', 'ww'),
-	(00000000016, 'Banco', '333', '2015-10-01', 'av c', 'WERQ'),
-	(00000000017, 'Sabadell', '011', '2015-10-01', 'av a', '4VFHYTa'),
-	(00000000018, 'sabadell', '02342', '2015-10-01', 'avasdb', 'DWTG9'),
-	(00000000019, 'Banco', '333', '2015-10-01', 'av c', 'WERQ'),
-	(00000000020, 'kkk', 'asdasd', '2015-02-02', 'eweew', '312313'),
-	(00000000021, 'dasd', 'dasd', '2015-02-02', 'asdasd', 'asdas'),
-	(00000000022, 'Sabadell', '011', '2015-10-01', 'av a', '4VFHYTa'),
-	(00000000023, 'sabadell', '02342', '2015-10-01', 'avasdb', 'DWTG9'),
-	(00000000024, 'Banco', '333', '2015-10-01', 'av c', 'WERQ'),
-	(00000000027, '3123123', '123', '2015-02-02', '1231', '313131'),
-	(00000000028, '3123123', '123', '2015-02-02', '423rer', '313131'),
-	(00000000029, 'dasdasda', '123', '2015-02-02', '423rer', '313131'),
-	(00000000030, 'asdasd', 'weqwew', '2015-02-02', 'dasdas', 'asdasd'),
-	(00000000032, 'Sabadell', '011', '2015-10-08', 'av a', '4VFHYTa'),
-	(00000000033, 'Sabadell', '011', '2015-10-08', 'av a', '4VFHYTa'),
-	(00000000034, 'sabadell', '02342', '2015-10-08', 'avasdb', 'DWTG9'),
-	(00000000035, 'Banco', '333', '2015-10-08', 'av c', 'WERQ'),
-	(00000000036, 'Sabadell', '011', '2015-10-14', 'av a', '4VFHYTa'),
-	(00000000037, 'sabadell', '02342', '2015-10-14', 'avasdb', 'DWTG9'),
-	(00000000042, 'autowire', '011', '2015-10-15', 'av a', '4VFHYTa'),
-	(00000000048, '22', '2', '2015-01-01', '2', '2'),
-	(00000000049, 'pruebanueva', '111', '2015-01-01', '1231', '1313'),
-	(00000000050, 'sdasd', '123', '2015-01-01', 'weqweqw', 'qweqwe'),
-	(00000000051, '3333', '333', '2015-01-01', '333', '333');
+INSERT INTO `banco`.`entidadbancaria` (`nombre`, `codigoEntidad`, `fechaCreacion`, `direccion`, `cif`) VALUES ('Santander', '2001', '2010-05-06', 'c/ botin 17', '55555555K');
+INSERT INTO `banco`.`entidadbancaria` (`nombre`, `codigoEntidad`, `fechaCreacion`, `direccion`, `cif`) VALUES ('Evobank', '2002', '2011-07-08', 'c/ morales 34', '66666666Q');
+INSERT INTO `banco`.`entidadbancaria` (`nombre`, `codigoEntidad`, `fechaCreacion`, `direccion`, `cif`) VALUES ('Bankia', '2003', '2008-07-08', 'c/ San Antonio 30', '77777777B');
+INSERT INTO `banco`.`entidadbancaria` (`nombre`, `codigoEntidad`, `fechaCreacion`, `direccion`, `cif`) VALUES ('Go-Server', '2000', '2015-02-02', 'C/ DaniTusMueltos', '53258450H');
+
+
+CREATE TABLE IF NOT EXISTS `sucursalbancaria` (
+	`idSucursalBancaria` INT(11) NOT NULL AUTO_INCREMENT,
+	`codigoSucursalBancaria` VARCHAR(4) NULL DEFAULT NULL UNIQUE,
+	`direccion` VARCHAR(80) NULL DEFAULT NULL UNIQUE,
+	`telefono` VARCHAR(20) NULL DEFAULT NULL,
+	`idEntidadBancaria` INT(11) NULL DEFAULT NULL,
+	`fechaCreacion` DATE NULL DEFAULT NULL,
+	PRIMARY KEY (`idSucursalBancaria`),
+        FOREIGN KEY (`idEntidadBancaria`) REFERENCES `entidadbancaria`(`idEntidadBancaria`)
+)
+COLLATE='utf8_general_ci'
+ENGINE=InnoDB
+;
+
+INSERT INTO `banco`.`sucursalbancaria` (`codigoSucursalBancaria`, `direccion`, `telefono`, `idEntidadBancaria`, `fechaCreacion`) VALUES ('2001', 'C/ Tu Sucursal', '968881144', '1','2010-05-06');
+INSERT INTO `banco`.`sucursalbancaria` (`codigoSucursalBancaria`, `direccion`, `telefono`, `idEntidadBancaria`, `fechaCreacion`) VALUES ('2002', 'C/ Transformerica', '965552244', '2','2013-05-06');
+INSERT INTO `banco`.`sucursalbancaria` (`codigoSucursalBancaria`, `direccion`, `telefono`, `idEntidadBancaria`, `fechaCreacion`) VALUES ('2003', 'C/ Rio Abajo', '961114488', '2','2003-11-01');
+INSERT INTO `banco`.`sucursalbancaria` (`codigoSucursalBancaria`, `direccion`, `telefono`, `idEntidadBancaria`, `fechaCreacion`) VALUES ('2000', 'C/ Tus Muelaaas', '961234567', '4','2015-02-02');
+
+
+CREATE TABLE IF NOT EXISTS `usuario` (
+	`idUsuario` INT(11) NOT NULL AUTO_INCREMENT,
+	`nombre` VARCHAR(50) NULL DEFAULT NULL,
+        `email` VARCHAR(50) NULL DEFAULT NULL,
+	`encryptedPassword` VARCHAR(80) NULL DEFAULT NULL,
+	`rol` ENUM('trabajador','cliente') NULL DEFAULT NULL,
+	`nick` VARCHAR(50)  NULL DEFAULT NULL ,
+        `dni` VARCHAR(9) NULL DEFAULT NULL,
+	PRIMARY KEY (`idUsuario`),
+        UNIQUE KEY `nick` (`nick`),
+        UNIQUE KEY `dni` (`dni`)
+)
+COLLATE='utf8_general_ci'
+ENGINE=InnoDB
+;
+
+INSERT INTO `usuario` (`idUsuario`, `nombre`, `email`, `encryptedPassword`, `rol`, `nick`, `dni`) VALUES (2, 'cliente', 'cliente@cliente.com', 'oFQrspbsJhva3+HgRI4lXFw+Hv2hHcmT', 'cliente', 'cliente', '33333333P');
+INSERT INTO `usuario` (`idUsuario`, `nombre`, `email`, `encryptedPassword`, `rol`, `nick`, `dni`) VALUES (3, 'a', 'a@a.com', 'JVaiKkedo4saW1Jw9IEuCxdBzKc6UFxm', 'trabajador', 'a', '22222222J');
+INSERT INTO `usuario` (`idUsuario`, `nombre`, `email`, `encryptedPassword`, `rol`, `nick`, `dni`) VALUES (1, 'trabajador', 'trabajador@trabajador.com', 'fDTIfF8f4BnVkzkcvNdyINBmIXbRRxsJ', 'trabajador', 'trabajador', '11111111H');
+INSERT INTO `usuario` (`idUsuario`, `nombre`, `email`, `encryptedPassword`, `rol`, `nick`, `dni`) VALUES (4, 'daniel', 'daniel@daniel.com', 'Ks7MIvDG/+LH0cZAoBtKjJ1oXC3NdOpa', 'trabajador', 'daniel', '53258450H');
+
+
+CREATE TABLE IF NOT EXISTS `cuentabancaria` (
+	`idCuentaBancaria` INT(11) NOT NULL AUTO_INCREMENT,
+        `numeroCuenta` VARCHAR(16) NULL DEFAULT NULL UNIQUE,
+        `digitoControl` VARCHAR(2) NULL DEFAULT NULL,
+        `idUsuario` INT(11) NULL DEFAULT NULL,
+        `idSucursalBancaria` INT(11) NULL DEFAULT NULL,
+        `saldo` DECIMAL(15,2) NULL DEFAULT NULL,
+        `fechaCreacion` DATE NULL DEFAULT NULL,
+	PRIMARY KEY (`idCuentaBancaria`),
+        FOREIGN KEY (`idUsuario`) REFERENCES `usuario`(`idUsuario`),
+        FOREIGN KEY (`idSucursalBancaria`) REFERENCES `sucursalbancaria`(`idSucursalBancaria`) 
+)
+COLLATE='utf8_general_ci'
+ENGINE=InnoDB
+;
+
+INSERT INTO `cuentabancaria` ( `numeroCuenta`, `digitoControl`, `idUsuario`, `idSucursalBancaria`, `saldo`, `fechaCreacion`) VALUES ("1234567891", 90, 3, 1, 1566, '2016-01-10');
+INSERT INTO `cuentabancaria` ( `numeroCuenta`, `digitoControl`, `idUsuario`, `idSucursalBancaria`, `saldo`, `fechaCreacion`) VALUES ("0000111122", 76, 2, 2, 2533.22, '2015-01-10');
+INSERT INTO `cuentabancaria` ( `numeroCuenta`, `digitoControl`, `idUsuario`, `idSucursalBancaria`, `saldo`, `fechaCreacion`) VALUES ("7777222255", 78, 1, 2, 7533.22, '2014-01-10');
+INSERT INTO `cuentabancaria` ( `numeroCuenta`, `digitoControl`, `idUsuario`, `idSucursalBancaria`, `saldo`, `fechaCreacion`) VALUES ("9999999999", 90, 1, 1, 500, '2010-01-10');
+INSERT INTO `cuentabancaria` ( `numeroCuenta`, `digitoControl`, `idUsuario`, `idSucursalBancaria`, `saldo`, `fechaCreacion`) VALUES ("5555555555", 50, 2, 3, 120, '2012-01-10');
+INSERT INTO `cuentabancaria` ( `numeroCuenta`, `digitoControl`, `idUsuario`, `idSucursalBancaria`, `saldo`, `fechaCreacion`) VALUES ("9876543211", 74, 4, 4, 999999.00, '2016-02-02');
+
+
+CREATE TABLE IF NOT EXISTS `movimientobancario` (
+	`idMovimientoBancario` INT(11) NOT NULL AUTO_INCREMENT,
+	`tipoMovimiento` ENUM('debe', 'haber') NULL DEFAULT NULL,
+        `idCuentaBancaria` INT(11) NULL DEFAULT NULL,
+	`concepto` VARCHAR(40) NULL DEFAULT NULL,
+        `importe` DECIMAL(15,2) NULL DEFAULT NULL,
+        `saldoAnterior` DECIMAL(15,2) NULL DEFAULT NULL,
+        `saldoPosterior` DECIMAL(15,2) NULL DEFAULT NULL,
+	`fechaMovimiento` DATE NULL DEFAULT NULL,
+	PRIMARY KEY (`idMovimientoBancario`),
+        FOREIGN KEY (`idCuentaBancaria`) REFERENCES `cuentabancaria`(`idCuentaBancaria`) 
+)
+COLLATE='utf8_general_ci'
+ENGINE=InnoDB
+;
+
+INSERT INTO `banco`.`movimientobancario` VALUES (null, 'debe', 1, 'humbleBundle', '20', 1676, 1656, curdate());
+INSERT INTO `banco`.`movimientobancario` VALUES (null, 'haber', 1, 'empresa', '100', 1656, 1566, curdate());
+

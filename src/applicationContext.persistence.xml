@@ -12,6 +12,7 @@
     <bean class="com.fpmislata.banco.persistence.jdbc.impl.DataSourceFactoryImpl" />
     <bean class="com.fpmislata.banco.persistence.jdbc.migration.impl.DatabaseMigrationImplFlyWay" />
     <bean class="com.fpmislata.banco.persistence.dao.impl.hibernate.EntidadBancariaDAOImplHibernate" />
+    <bean class="com.fpmislata.banco.persistence.dao.impl.hibernate.SucursalBancariaDAOImplHibernate" />
 </beans>
 
 
