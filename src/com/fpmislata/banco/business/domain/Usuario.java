@@ -5,63 +5,59 @@
  */
 package com.fpmislata.banco.business.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotBlank;
 
 /**
  *
  * @author alumno
  */
-public class Usuario implements Serializable  {
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+public class Usuario implements Serializable {
 
-    private int idusuario;
-    private String nombreUsuario;
+    private int idUsuario;
+
+    @NotBlank
+    @Size(min = 2, max = 40)
     private String nombre;
-    private String apellido;
-    private String dni;
-    private String direccion;
+
+    @Email
+    @NotBlank
     private String email;
+
     private String password;
+    
+    @NotNull
     private Rol rol;
 
-    public Usuario(String nombreUsuario, String password) {
-        this.nombreUsuario = nombreUsuario;
+    @Size(min = 2, max = 20)
+    @NotBlank
+    @Pattern(regexp = "^[_A-Za-z0-9-\\+]+$")
+    private String nick;
+
+    @NotBlank
+    @Size(min = 9, max = 9)
+    private String dni;
+
+    public Usuario() {
+    }
+
+    public Usuario(String nick, String password) {
+        this.nick = nick;
         this.password = password;
     }
 
-    public Usuario(int idusuario, String nombreUsuario, String nombre, String apellido, String dni, String direccion, String email, String password, Rol rol) {
-        this.idusuario = idusuario;
-        this.nombreUsuario = nombreUsuario;
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.dni = dni;
-        this.direccion = direccion;
-        this.email = email;
-        this.password = password;
-        this.rol = rol;
+    public int getIdUsuario() {
+        return idUsuario;
     }
 
-    public String getNombreUsuario() {
-        return nombreUsuario;
-    }
-
-    public void setNombreUsuario(String nombreUsuario) {
-        this.nombreUsuario = nombreUsuario;
-    }
-
-    public int getIdusuario() {
-        return idusuario;
-    }
-
-    public void setIdusuario(int idusuario) {
-        this.idusuario = idusuario;
-    }
-
-    public Rol getRol() {
-        return rol;
-    }
-
-    public void setRol(Rol rol) {
-        this.rol = rol;
+    public void setIdUsuario(int idUsuario) {
+        this.idUsuario = idUsuario;
     }
 
     public String getNombre() {
@@ -72,36 +68,20 @@ public class Usuario implements Serializable  {
         this.nombre = nombre;
     }
 
-    public String getApellido() {
-        return apellido;
-    }
-
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
-    }
-
-    public String getDni() {
-        return dni;
-    }
-
-    public void setDni(String dni) {
-        this.dni = dni;
-    }
-
-    public String getDireccion() {
-        return direccion;
-    }
-
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
-    }
-
     public String getEmail() {
         return email;
     }
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Rol getRol() {
+        return rol;
+    }
+
+    public void setRol(Rol rol) {
+        this.rol = rol;
     }
 
     public String getPassword() {
@@ -112,4 +92,21 @@ public class Usuario implements Serializable  {
         this.password = password;
     }
 
+    public String getNick() {
+        return nick;
+    }
+
+    public void setNick(String nick) {
+        this.nick = nick;
+    }
+
+    public String getDni() {
+        return dni;
+    }
+
+    public void setDni(String dni) {
+        this.dni = dni;
+    }
+
+    
 }

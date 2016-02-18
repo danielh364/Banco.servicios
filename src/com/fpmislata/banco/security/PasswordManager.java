@@ -5,12 +5,15 @@ package com.fpmislata.banco.security;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author alumno
  */
-public interface PasswordManager  {
+public interface PasswordManager {
+
     public String encrypt(String password);
-    public boolean compare(String password, String encyptedPassword);
+
+    public boolean check(String password, String encyptedPassword);
+
+    public boolean checkComplexity(String password);
 }

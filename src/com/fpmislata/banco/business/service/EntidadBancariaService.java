@@ -6,7 +6,6 @@
 package com.fpmislata.banco.business.service;
 
 import com.fpmislata.banco.business.domain.EntidadBancaria;
-import com.fpmislata.banco.business.service.GenericService;
 import java.util.List;
 
 /**
