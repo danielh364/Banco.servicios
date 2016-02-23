@@ -19,7 +19,7 @@ public class EntidadBancariaDAOImplHibernate extends GenericDAOImplHibernate<Ent
 
     @Override
     public List<EntidadBancaria> findByNombre(String nombre) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
 
         Query query = session.createQuery("SELECT entidadBancaria FROM EntidadBancaria entidadBancaria WHERE nombre=?");

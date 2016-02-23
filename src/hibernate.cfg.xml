@@ -13,6 +13,7 @@
         <mapping resource="com/fpmislata/banco/persistence/dao/impl/hibernate/hbm/EntidadBancaria.hbm.xml"/>
         <mapping resource="com/fpmislata/banco/persistence/dao/impl/hibernate/hbm/SucursalBancaria.hbm.xml"/>
         <mapping resource="com/fpmislata/banco/persistence/dao/impl/hibernate/hbm/Usuario.hbm.xml"/>
+        <mapping resource="com/fpmislata/banco/persistence/dao/impl/hibernate/hbm/CuentaBancaria.hbm.xml"/>
         <!--<mapping class="com.fpmislata.banco.business.domain.EntidadBancaria"/>-->
     </session-factory>
 </hibernate-configuration>

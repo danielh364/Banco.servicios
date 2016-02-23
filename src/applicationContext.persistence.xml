@@ -14,6 +14,7 @@
     <bean class="com.fpmislata.banco.persistence.dao.impl.hibernate.EntidadBancariaDAOImplHibernate" />
     <bean class="com.fpmislata.banco.persistence.dao.impl.hibernate.SucursalBancariaDAOImplHibernate" />
     <bean class="com.fpmislata.banco.persistence.dao.impl.hibernate.UsuarioDAOImplHibernate" />
+    <bean class="com.fpmislata.banco.persistence.dao.impl.hibernate.CuentaBancariaDAOImplHibernate" />
 </beans>
 
 
