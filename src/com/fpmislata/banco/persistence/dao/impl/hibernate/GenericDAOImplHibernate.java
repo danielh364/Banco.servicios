@@ -31,7 +31,7 @@ public class GenericDAOImplHibernate<T> implements GenericDAO<T> {
         T t = (T) session.get(getEntityClass(), id);
 
         session.getTransaction().commit();
-        session.close();
+
 
         return t;
     }
@@ -85,7 +85,6 @@ public class GenericDAOImplHibernate<T> implements GenericDAO<T> {
         }
 
         session.getTransaction().commit();
-        session.close();
         return devolver;
     }
 
